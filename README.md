@@ -1,14 +1,13 @@
 # evolution_of_cooperation
 
+Note for adding a strategy:
+follow the video, but add `from custom_strats import *` in the _strategies.py file instead of adding `from grumpy import *` to  __init__.py
+The strategy list is at the bottom of the _strategies.py file instead of at the bottom of the __init__.py file. Add the class to list, not the name of the python file
 adding a strategy:
 https://www.youtube.com/watch?v=5kOUVdktxAo
 
 
-note: We may need to have the dev branch of the github
-https://github.com/Axelrod-Python/Axelrod
-
-
-axelrod folder located at:
+axelrod folder (for me) is located at:
 C:\Users\[username]\AppData\Local\Programs\Python\Python310\Lib\site-packages\
 
 Add the file `custom_strats.py` to the strategies folder within the axelrod folder

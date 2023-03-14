@@ -39,9 +39,9 @@ class customPlayer1(Player):
         if not self.history:
             return D
         # React to the opponent's last move
-        if opponent.history[-1] == D:
-            return C
-        return D
+        # if opponent.history[-1] == D:
+        #     return C
+        return C
     
     def clone(self):
         return self
