@@ -9,7 +9,7 @@ https://github.com/Axelrod-Python/Axelrod
 
 
 axelrod folder located at:
-C:\Users\[username]\AppData\Local\Programs\Python\Python310\Lib\site-packages
+C:\Users\[username]\AppData\Local\Programs\Python\Python310\Lib\site-packages\
 
 Add the file `custom_strats.py` to the strategies folder within the axelrod folder
 
