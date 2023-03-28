@@ -21,8 +21,3 @@ Under the list of all strategies in the `_strategies.py` file at the bottom, add
 place the following file under the axelrod folder and run after creating strategies
 https://github.com/Axelrod-Python/Axelrod/blob/dev/rebuild_classifier_table.py
 
-writing test for user created files:
-https://axelrod.readthedocs.io/en/stable/how-to/contributing/strategy/writing_test_for_the_new_strategy.html?highlight=create
-
-adding new strategy
-https://axelrod.readthedocs.io/en/stable/how-to/contributing/strategy/adding_the_new_strategy.html
