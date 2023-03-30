@@ -11,7 +11,7 @@ print("Done.")
 print()
 # show a list for users to choose from
 print("Choose from the following strategies, enter `-1` when done:")
-players = [axl.TitForTat(), axl.customPlayer1(),  axl.Defector(), axl.Cooperator(), axl.Grudger()]
+players = [axl.TitForTat(), axl.fibTitForTat(),  axl.Defector(), axl.Cooperator(), axl.Grudger()]
 i = 0
 for i, strategy in enumerate(players):
     print("{0}: {1}".format(i, strategy.name))
