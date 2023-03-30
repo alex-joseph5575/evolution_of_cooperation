@@ -1,5 +1,6 @@
+# git clone https://github.com/Austin-Simpson/Axelrod
 import sys
-sys.path.append('../axelrod_evo/')
+sys.path.append('../Axelrod/')
 
 # Now you can import modules or packages from the specified folder
 print("Importing axelrod...")
