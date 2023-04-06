@@ -5,7 +5,7 @@ print("Done.")
 print()
 # show a list for users to choose from
 print("Choose from the following strategies, enter `-1` when done:")
-players = [axl.TitForTat(), axl.Defector(), axl.Cooperator(), axl.Grudger()]
+players = [axl.TitForTat(), axl.Defector(), axl.customPlayer1(), axl.Cooperator(), axl.Grudger()]
 i = 0
 for i, strategy in enumerate(players):
     print("{0}: {1}".format(i, strategy.name))
@@ -38,6 +38,22 @@ tournament = axl.Tournament(strategies)
 # run the tournament
 print("Starting tournament...")
 results = tournament.play()
+
+# print list of result viewing options
+resultOptions = ["Wins", "Scores", "Ranking"]
+print("Tournament complete. Which results would you like to view?")
+i = 0
+for i, option in enumerate(resultOptions):
+    print("{0}: {1}".format(i, option))
+print("-1: Exit")
+print()
+
+# prompt user for input
+#i = 0
+#option = int(input())
+#while option != -1:
+    
+
 
 # print the results
 print("Results:")
