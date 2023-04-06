@@ -40,6 +40,11 @@ print("Starting tournament...")
 results = tournament.play()
 
 # print the results
-print("Results:")
+print("Ranking:")
 print(results.ranked_names)
+
+# print the results
+print("Results:")
+print(results.ranking)
+
 
