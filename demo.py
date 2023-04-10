@@ -63,19 +63,33 @@ for i, option in enumerate(resultOptions):
 print("-1: Exit")
 print()
 
-# prompt user for input
-#i = 0
-#option = int(input())
-#while option != -1:
+# prompt user for input and print results
+i = 0
+option = int(input())
+while option != -1:
+    match option:
+        case 0:
+            print(results.wins)
+        case 1:
+            print(results.scores)
+        case 2:
+            print(results.ranked_names)
+        case _:
+            print("Invalid input")
+    for i, option in enumerate(resultOptions):
+        print("{0}: {1}".format(i, option))
+    print("-1: Exit")
+    i = 0
+    option = int(input())
     
 
 
 # print the results
-print("Results listed from most points (left) to least (right):")
-print(results.ranked_names)
+#print("Results listed from most points (left) to least (right):")
+#print(results.ranked_names)
 
 # print the results
-print("Results:")
-print(results.ranking)
+#print("Results:")
+#print(results.ranking)
 
 
