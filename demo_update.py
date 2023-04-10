@@ -2,6 +2,7 @@
 print("Importing axelrod...")
 import axelrod as axl
 import random
+from strategy_descriptions import get_strategy_choice
 print("Done.")
 print()
 
@@ -24,9 +25,24 @@ while (True):
     print("Choose from a 1v1 match to a tournament of 2+ participants: ")
     print("1: Match")
     print("2: Tournament")
-    gamemode = int(input())
-    if (gamemode > 2 or gamemode < 1):
+    print ("0: Read description of strategies")
+    selection = input()
+
+    # Error handling for non-integers
+    try:
+        gamemode = int(selection)
+    except ValueError:
+        print("Error. Non-integer input detected. Please try again.")
+        continue
+
+    # User wanted to read up on strategies
+    if gamemode == 0:
+        get_strategy_choice()
+        continue
+    # User provided a non-option
+    elif (gamemode > 2 or gamemode < 1):
         print("Please pick 1 or 2")
+    # User selected a proper game action
     else:
         break
 
