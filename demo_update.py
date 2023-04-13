@@ -1,6 +1,7 @@
 # simple command line UI for axelrod
 print("Importing axelrod...")
 import axelrod as axl
+from custom_strats import *
 import random
 from strategy_descriptions import get_strategy_choice
 print("Done.")
@@ -51,7 +52,7 @@ if gamemode == 2:
     print("Choose from the following strategies, enter `-1` when done:")
 else:
     print("Choose from the following strategies:")
-players = [axl.TitForTat(), axl.Defector(), axl.Cooperator(), axl.Grudger()]
+players = [axl.TitForTat(), axl.Defector(), axl.Cooperator(), axl.Grudger(), customPlayer1()]
 i = 0
 for i, strategy in enumerate(players):
     print("{0}: {1}".format(i, strategy.name))
