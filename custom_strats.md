@@ -1,5 +1,5 @@
 # evolution_of_cooperation
-
+## THIS IS NO LONGER RELEVANT FOR US
 Note for adding a strategy:
 follow the video, but add `from custom_strats import *` in the _strategies.py file instead of adding `from grumpy import *` to  __init__.py
 The strategy list is at the bottom of the _strategies.py file instead of at the bottom of the __init__.py file. Add the class to list, not the name of the python file
