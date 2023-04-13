@@ -1,7 +1,8 @@
 # Run Instructions
 After cloning the repository, run demo.py in the command line. 
 ```
-python demo.py
+pip install axelrod
+python demo_update.py
 ```
 
 This will prompt a basic UI that you can follow to set up a prisoner's dilemma competition. Once you have selected your strategies, the tournament will commence. 
