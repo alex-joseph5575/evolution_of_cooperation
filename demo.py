@@ -54,33 +54,77 @@ tournament = axl.Tournament(strategies)
 print("Starting tournament...")
 results = tournament.play()
 
-# print list of result viewing options
-resultOptions = ["Wins", "Scores", "Ranking"]
-print("Tournament complete. Which results would you like to view?")
-i = 0
-for i, option in enumerate(resultOptions):
-    print("{0}: {1}".format(i, option))
-print("-1: Exit")
-print()
+flag = 1
 
-# prompt user for input and print results
-i = 0
-option = int(input())
-while option != -1:
-    match option:
-        case 0:
-            print(results.wins)
-        case 1:
-            print(results.scores)
-        case 2:
-            print(results.ranked_names)
-        case _:
-            print("Invalid input")
+# Basic version
+if flag == 0:
+        # print list of result viewing options
+    resultOptions = ["Wins", "Scores", "Ranking"]
+    print("Tournament complete. Which results would you like to view?")
+    i = 0
     for i, option in enumerate(resultOptions):
         print("{0}: {1}".format(i, option))
     print("-1: Exit")
+    print()
+
+    # prompt user for input and print results
     i = 0
     option = int(input())
+    while option != -1:
+        match option:
+            case 0:
+                print(results.wins)
+            case 1:
+                print(results.scores)
+            case 2:
+                print(results.ranked_names)
+            case _:
+                print("Invalid input")
+        for i, option in enumerate(resultOptions):
+            print("{0}: {1}".format(i, option))
+        print("-1: Exit")
+        i = 0
+        option = int(input())
+
+# Advanced version
+elif flag == 1:
+    # print list of result viewing options
+    resultOptions = ["Wins", "Scores", "Ranking", "Normalised Scores", "Payoffs", "Initial Cooperation Rates", "Cooperation Counts"]
+    print("Tournament complete. Which results would you like to view?")
+    i = 0
+    for i, option in enumerate(resultOptions):
+        print("{0}: {1}".format(i, option))
+    print("-1: Exit")
+    print()
+
+    # prompt user for input and print results
+    i = 0
+    option = int(input())
+    while option != -1:
+        match option:
+            case 0:
+                print(results.wins)
+            case 1:
+                print(results.scores)
+            case 2:
+                print(results.ranked_names)
+            case 3:
+                print(results.normalised_scores)
+            case 4:
+                print(results.payoff_matrix)
+            case 5:
+                print(results.initial_cooperation_rate)
+            case 6:
+                print(results.cooperation)
+            case _:
+                print("Invalid input")
+        for i, option in enumerate(resultOptions):
+            print("{0}: {1}".format(i, option))
+        print("-1: Exit")
+        i = 0
+        option = int(input())
+
+
     
 
 
