@@ -3,22 +3,16 @@ import axelrod as axl
 C, D = axl.Action.C, axl.Action.D
 
 
-class customPlayer1(axl.Player):
+class example(axl.Player):
     """
-    A player starts by cooperating and then mimics the previous action of the
-    opponent.
-    This strategy was referred to as the *'simplest'* strategy submitted to
-    Axelrod's first tournament. It came first.
-    Note that the code for this strategy is written in a fairly verbose
-    way. This is done so that it can serve as an example strategy for
-    those who might be new to Python.
-    Names:
-    - Rapoport's strategy: [Axelrod1980]_
-    - TitForTat: [Axelrod1980]_
+    This is an example strategy to show you the structure of a strategy.
+    It cooperates on the first move and then defects if and only if the opponent
+    defected on the previous move.
     """
 
     # These are various properties for the strategy
-    name = "customPlayer1"
+    name = "example"
+
     classifier = {
         "memory_depth": 1,  # Four-Vector = (1.,0.,1.,0.)
         "stochastic": False,
@@ -28,19 +22,19 @@ class customPlayer1(axl.Player):
         "manipulates_state": False,
     }
 
-    def strategy(self, opponent ):
-        """This is the actual strategy"""
+    def strategy(self, opponent):
+        """This is where you define the strategy"""
         # First move
-        if not self.history:
-            return C
-        # React to the opponent's last move
-        if opponent.history[-1] == D:
-            return D
-        return C
+        if not self.history:    # If the length of history is 0, i.e. the first round
+            return C            
+        
+        # The rest of your moves
+        if opponent.history[-1] == D:   # If the opponent's last move was D
+            return D                    # Defect
+        return C                        # Otherwise cooperate.
     
-    # def clone(self):
-    #     return self
-    
+
+# next strategy
 class chaotic_clairvoyant(axl.Player):
     """
     A player looks at the last 3 (or however many were performed if less than 3) actions of their
@@ -86,7 +80,51 @@ class chaotic_clairvoyant(axl.Player):
             if d_count > c_count:
                 return C
             return D
-    
-    # def clone(self):
-    #     return self
 
+
+from misc_functions import (
+    fib, getRandom
+)
+
+class fibTitForTat(axl.Player):
+    """
+    A player starts by cooperating and then mimics the previous action of the
+    opponent.
+    This strategy was referred to as the *'simplest'* strategy submitted to
+    Axelrod's first tournament. It came first.
+    Note that the code for this strategy is written in a fairly verbose
+    way. This is done so that it can serve as an example strategy for
+    those who might be new to Python.
+    Names:
+    - Rapoport's strategy: [Axelrod1980]_
+    - TitForTat: [Axelrod1980]_
+    """
+
+    # These are various properties for the strategy
+    name = "fibTitForTat"
+    classifier = {
+        "memory_depth": 1,  # Four-Vector = (1.,0.,1.,0.)
+        "stochastic": False,
+        "long_run_time": False,
+        "inspects_source": False,
+        "manipulates_source": False,
+        "manipulates_state": False,
+    }
+    turnCount = 0
+    def strategy(self, opponent):
+        self.turnCount += 1
+        """This is the actual strategy"""
+        # First move
+        if not self.history:
+            return C
+        
+        # Each turn, fibTitForTat has a chance of defecting outright
+        # as determined by a one-in-fib(turnCount) chance
+        fibChance = fib(self.turnCount)
+        if getRandom(fibChance) == True:
+            return D
+
+        # React to the opponent's last move
+        if opponent.history[-1] == D:
+            return D
+        return C
