@@ -89,6 +89,51 @@ while (tooManyRounds):
     if numberOfRounds <= 100:
         break
     print("Too many rounds. Pick a number less than 100: ")
+    
+# ask user for amount of noise
+print("Noise represents the probability that a player's move will be flipped between C and D")
+userNoise = float(input("Input number for amount of noise (0 for no noise, 1 for every 100% noise): "))
+if userNoise > 1:
+    userNoise = 1
+    print("Noise set to the maximum of 1")
+elif userNoise <= 0:
+    userNoise = 0
+    print("No noise will be added")
+
+# probabalistic ending of matches
+print("Probablistic ending is the probability that a match will end after each move")
+probEnd = float(input("Input number for odds of probablistic ending (maximum of 0.5 for 50%): "))
+if probEnd > 0.5:
+    probEnd = 0.5
+    print("Probablistic end chance set to the maximum of 0.5")
+elif probEnd <= 0:
+    probEnd = 0
+    print("No chance for probablistic ending")
+
+# provide an opportunity to transform a strategy. Still flushing out.
+'''
+chanceToTransform = int(input("Would you like to transform a strategy? \'-1\' to skip, \'1\' to transform: "))
+if chanceToTransform == 1:
+    transformations = ["Flip Moves", "Deadlock Breaker", "Apologetic"]
+    for i, strategy in enumerate(strategies):
+        print("{0}: {1}".format(i, strategy.name))
+    toTransform = int(input("Select a strategy number to transform: "))
+    stratToTransform = strategies[toTransform]
+    for i, transformation in enumerate(transformations):
+        print("{0}: {1}".format(i, transformations[i]))
+    transformationType = int(input("Select a transformation number: "))
+    if transformationType == 0:
+        from axelrod.strategy_transformers import FlipTransformer
+        strategies[toTransform] = FlipTransformer()(stratToTransform)
+    elif transformationType == 1:
+        from axelrod.strategy_transformers import DeadlockBreakingTransformer
+        strategies[toTransform] = DeadlockBreakingTransformer()(stratToTransform)
+    elif transformationType == 2:
+        from axelrod.strategy_transformers import ApologyTransformer
+        strategies[toTransform] = ApologyTransformer()(stratToTransform)
+else:
+    print("Transformations skipped")
+'''
 
 # create a match or tournament
 randomizedRounds = random.randint(5, 15) # randomized number of extra rounds (5-15 for testing)
