@@ -15,6 +15,14 @@ def get_strategy_choice():
         8 - WorseAndWorse
         9 - Forgiver
         10 - Adaptive
+        11 - Alternator
+        12 - Appeaser
+        13 - AverageCopier
+        14 - Backstabber
+        15 - BetterAndBetter
+        16 - Doubler
+        17 - Negation
+        18 - ShortMem
         0 - Exit back to strategy selection
 
         ''')
@@ -25,7 +33,7 @@ def get_strategy_choice():
             continue
 
         # User's choice is not in selection
-        if selection < 0 or selection > 10:
+        if selection < 0 or selection > 18:
             print("Please pick a number currently in the given options.")
             continue
         # User wants to return to choosing strategies
@@ -106,4 +114,63 @@ def provide_description(strategy_number):
         for the next 5 turns. From there, Adaptive will cooperate (C) with or defect 
         (D) against the opponent based on what move had scored them more points, and
         recalculates this each turn.
+        ''')
+    if strategy_number == 11:
+        print('''Alternator is a strategy that begins by cooperating (C) with the
+        opponent. From there, Alterator will defect (D) if its previous turn was
+        spent cooperating (C) with the opponent, and will cooperate (C) if its 
+        previous turn was spent defecting (D) against the opponent.
+        ''')
+    if strategy_number == 12:
+        print('''Appeaser is a strategy that begins by cooperating (C) with the
+        opponent. From there, if the opponent has defected (D) against Appeaser
+        during the previous round, Appeaser will defect (D) if it cooperated
+        (C) during the previous round OR Appeaser will cooperate (C) if it 
+        defected (D) during the previous round. If the opponent continues to 
+        cooperate (C) with Appeaser, Appeaser will continue to cooperate (C).
+        ''')
+    if strategy_number == 13:
+        print('''Average Copier is a strategy that begins by a 50/50 chance of either
+        cooperating (C) with or defecting (D) against the opponent. From there, Average
+        Copier's probability of cooperating (C) with the opponent is determined by:
+        # of opponent Cooperations / # opponent's total moves.
+        ''')
+    if strategy_number == 14:
+        print('''Backstabber is a strategy that begins by cooperating (C) with the
+        opponent. From there, Backstabber will continue to cooperate (C) with the
+        opponent until the opponent has defected (D) 4 times. Backstabber will then
+        always defect (D) against the opponent for the rest of the match. Regardless
+        of whether the opponent has defected (D) 4 times during the match or not, Backstabber
+        will always defect (D) against the opponent during the last 2 rounds of the match.
+        ''')
+    if strategy_number == 15:
+        print('''Better and Better is a strategy that has a chance of defecting (D)
+        against the opponent each turn determined by: (1000 - current turn) / 1000. 
+        This means that as the match continues on, Better and Better has a better
+        chance of cooperating (C) with the opponent.
+        ''')
+    if strategy_number == 16:
+        print('''Doubler is a strategy that will cooperate (C) with the opponent unless
+        the opponent has defected (D) during the previous round and the number of times
+        that the opponent has cooperated (C) is less than or equal to 2 times the number 
+        of times the opponent has defected (D). If both conditions are met, Doubler
+        will defect (D) against the opponent.
+        ''')
+    if strategy_number == 17:
+        print('''Negation is a strategy that begins by a 50/50 chance of either
+        cooperating (C) with or defecting (D) against the opponent. From there, Negation
+        will defect (D) if the opponent had cooperated (C) during the previous turn, and
+        cooperate (C) if the opponent had defected (D) during the previous turn.
+        ''')
+    if strategy_number == 18:
+        print('''ShortMem is a strategy that begins by cooperating (C) with the opponent
+        for the first 10 turns, recording the oppnent's actions during those turns. After 
+        the 10th turn, if the opponent had cooperated (C) 30% more times than defecting (D) 
+        during the first 10 turns, ShortMem will continue to cooperate (C) for the rest of
+        the match. If the opponent had defected (D) 30% more times than cooperating (C) 
+        during the first 10 turns, ShortMem will proceed by defecting (D) the rest of the 
+        match. If niether condition is met, ShortMem will utilize the strategy of Tit For Tat,
+        that is, cooperate (C) with the opponent unless the opponent has defected (D) during
+        the previous turn. If the opponent defected (D) during the previous turn, defect (D)
+        this turn as punishment.
         ''')
