@@ -92,7 +92,7 @@ while (tooManyRounds):
     
 # ask user for amount of noise
 print("Noise represents the probability that a player's move will be flipped between C and D")
-userNoise = float(input("Input number for amount of noise (0 for no noise, 1 for every 100% noise): "))
+userNoise = float(input("Input number for amount of noise (0 for no noise, 1 for 100% noise): "))
 if userNoise > 1:
     userNoise = 1
     print("Noise set to the maximum of 1")
