@@ -1,7 +1,7 @@
 # simple command line UI for axelrod
 print("Importing axelrod...")
 import axelrod as axl
-from custom_strats import *
+from src.custom_strats import *
 import random
 from strategy_descriptions import get_strategy_choice
 print("Done.")

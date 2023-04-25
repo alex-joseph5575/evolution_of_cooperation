@@ -30,7 +30,7 @@ class MyStrategy(axl.Player):
 
 # these imports are importing from the directory we are in
 from test_strategy import TestStrategy
-from custom_strats import *
+from src.custom_strats import *
 
 tournament = axl.Tournament(
     players=[axl.Cooperator(), axl.Defector(), MyStrategy(), TestStrategy(), customPlayer1(), chaotic_clairvoyant()],
