@@ -1,2 +1,3 @@
 *.pyc
 __pycache__/custom_strats.cpython-310.pyc
+outputs/
