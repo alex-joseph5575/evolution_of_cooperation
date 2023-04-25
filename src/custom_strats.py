@@ -82,7 +82,7 @@ class chaotic_clairvoyant(axl.Player):
             return D
 
 
-from misc_functions import (
+from src.misc_functions import (
     fib, getRandom
 )
 
