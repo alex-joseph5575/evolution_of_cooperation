@@ -44,7 +44,13 @@ def advanced_selection(gamemode):
         print("Choose from the following strategies, enter `-1` when done:")
     else:
         print("Choose from the following strategies:")
-    adv_players = [axl.TitForTat(), axl.Defector(), axl.Cooperator(), axl.Grudger()]
+    adv_players = [axl.TitForTat(), axl.Defector(), axl.Cooperator(), axl.Grudger(),
+                   axl.GoByMajority(), axl.GradualKiller(), axl.Handshake(), 
+                   axl.WorseAndWorse(), axl.Forgiver(), axl.Adaptive(),
+                   axl.Alternator(), axl.Appeaser(), axl.AverageCopier(),
+                   axl.BackStabber(), axl.BetterAndBetter(), axl.Doubler(),
+                   axl.Negation(), axl.ShortMem(), chaotic_clairvoyant(),
+                   fibTitForTat()]
     i = 0
     for i, strategy in enumerate(adv_players):
         print("{0}: {1}".format(i, strategy.name))

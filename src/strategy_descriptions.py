@@ -23,6 +23,8 @@ def get_strategy_choice():
         16 - Doubler
         17 - Negation
         18 - ShortMem
+        19 - chaotic_clairvoyant
+        20 - fibTitForTat
         0 - Exit back to strategy selection
 
         ''')
@@ -33,7 +35,7 @@ def get_strategy_choice():
             continue
 
         # User's choice is not in selection
-        if selection < 0 or selection > 18:
+        if selection < 0 or selection > 20:
             print("Please pick a number currently in the given options.")
             continue
         # User wants to return to choosing strategies
@@ -72,13 +74,13 @@ def provide_description(strategy_number):
     if strategy_number == 5:
         print('''Go By Majority is a strategy that begins by cooperating (C) with
         the opponent. Go By Majority records whether the opponent cooperates (C) or
-        chooses to defect (D), with a memory of 40 turns. If the opponent had cooperated
-        (C) more times than they have defected (D) during those 40 turns, Go By Majority
+        chooses to defect (D). If the opponent had cooperated (C) more times than 
+        they have defected (D) in Go By Majority's memory, Go By Majority
         will continue to cooperate (C) with the opponent. If the opponent defected (D)
         more times than cooperated (C), then Go By Majority will continue to defect (D)
         against its opponent. In the case that the opponent has cooperated (C) and
-        defected (D) an equal amount of times during the 40 turns of memory, Go By 
-        Majority will continue to cooperate (C) with the opponent.
+        defected (D) an equal amount of times according to Go By Majority's memory, 
+        Go By Majority will continue to cooperate (C) with the opponent.
         ''')
     if strategy_number == 6:
         print('''Gradual Killer is a strategy that begins by defecting (D) against
@@ -173,4 +175,27 @@ def provide_description(strategy_number):
         that is, cooperate (C) with the opponent unless the opponent has defected (D) during
         the previous turn. If the opponent defected (D) during the previous turn, defect (D)
         this turn as punishment.
+        ''')
+    if strategy_number == 19:
+        print('''Chaotic Clairvoyant is a strategy that begins by defecting (D) against the
+        opponent. From there, Chaotic Clairvoyant looks at the opponent's Last 3 moves (or 
+        however many moves the opponent has made if there has been less than 3 turns during 
+        the match), and does the opposite of that opponent's most frequently performed move.
+        In other words, if the opponent had cooperated (C) at least 2 times during the last 
+        two turns (or more than defected (D) if < 3 turns), Chaotic Clairvoyant will defect (D)
+        the current turn, and if the opponent had defected (D) at least 2 times during the last
+        two turns (or more than cooperated (C) if < 3 turns), Chaotic Clairvoyant will cooperate
+        (C) the current turn. In the case that the opponent had cooperated (C) and defected (D)
+        an equal amount of times due to still being under 3 turns, Chaotic Clairvoyant will
+        defect (D) by default.
+        ''')
+    if strategy_number == 20:
+        print('''Fib Tit for Tat is a strategy that cooperates (C) with the opponent during
+        the first turn of the match. From there, Fib Tit for Tat will copy its opponent's
+        previous move during the match, but has a chance of defecting (D) outright based on the
+        current turn count of the match. This chance of defecting (D) outright is 
+        a one-in-fib(turn count) chance, where fib(turn count) is equal to the number in the 
+        Fibonacci sequence associated with the current turn number. This means that as the match
+        goes on, the chances of Fib Tit for Tat defecting (D) regardless of the opponent's last
+        move decreases the longer the match goes on.
         ''')
