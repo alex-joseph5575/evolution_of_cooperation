@@ -64,9 +64,9 @@ while (True):
         break
 
 if advanced == 0:
-    strategies = basic_selection(gamemode)
+    strategies, strategyTransformerGroup = basic_selection(gamemode)
 else:
-    strategies = advanced_selection(gamemode)
+    strategies, strategyTransformerGroup = advanced_selection(gamemode)
 
 
 # ask user for number of rounds. Limited to 100 for testing
