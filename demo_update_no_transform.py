@@ -130,7 +130,7 @@ while (chanceToTransform == 1):
         print("Deadlock Breaking transformation applied.")
     elif transformationType == 2:
         from axelrod.strategy_transformers import ApologyTransformer
-        oldStrategy = strategies.pop(toTransform)
+        strategies.pop(toTransform)
         newStrategy = ApologyTransformer()(strategyTransformerGroup[toTransform])
         strategyTransformerGroup.pop(toTransform)
         strategies.append(newStrategy())
@@ -144,7 +144,7 @@ while (chanceToTransform == 1):
             print("Noise set to the maximum of 100. This is now effectively a flip transformation.")
         numNoise = noiseToAdd / 100.0
         from axelrod.strategy_transformers import NoisyTransformer
-        oldStrategy = strategies.pop(toTransform)
+        strategies.pop(toTransform)
         newStrategy = NoisyTransformer(numNoise)(strategyTransformerGroup[toTransform])
         strategyTransformerGroup.pop(toTransform)
         strategies.append(newStrategy())
