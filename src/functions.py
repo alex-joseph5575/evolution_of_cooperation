@@ -30,3 +30,30 @@ def outputToCsv(df, filename="results"):
         df.to_csv("outputs/" + filename + ".csv", index=False)
         print("File saved as " + filename + ".csv")
 
+from axelrod import result_set, tournament as tourney
+def resultsToDF(results, tournament):
+
+    # Make sure results is <class 'axelrod.result_set.ResultSet'>
+    # make sure tournament is <class 'axelrod.tournament.Tournament'>
+    if not isinstance(results, result_set.ResultSet):
+        raise TypeError("results must be a ResultSet")
+    if not isinstance(tournament, tourney.Tournament):
+        raise TypeError("tournament must be a Tournament")
+    
+
+    df = pd.DataFrame(results.summarise())
+    df = df.iloc[:, 0:5]
+
+    # additional info
+    extraData = {
+        'Total score': [sum(score) for score in results.scores],
+        'Avg. score per turn': [round(sum(score) / (len(score) * tournament.turns), 2) for score in results.scores],
+        'Score Std. deviation': [round(pd.Series(score).std(), 2) for score in results.scores],
+        'Normalised Score': [round(sum(score) / (len(score) * tournament.turns * len(results.players)), 2) for score in results.scores]
+    }
+
+    # append columns to df
+    for key in extraData:
+        df[key] = extraData[key]
+
+    return df

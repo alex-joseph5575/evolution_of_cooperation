@@ -7,3 +7,5 @@
   - Print the output to the console
     - Ask how many rows to print, if none entered, print all
   - Display a plot of the output
+    - Support multiple plots
+    - Ask which columns to plot ?
