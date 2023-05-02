@@ -3,9 +3,12 @@ print("Importing axelrod...")
 import axelrod as axl
 from src.custom_strats import *
 import random
-from strategy_descriptions import get_strategy_choice
+from src.strategy_descriptions import get_strategy_choice
+from src.strategy_selection import *
 print("Done.")
 print()
+
+advanced = 0
 
 # Provides some background info for users
 print('''
@@ -23,9 +26,14 @@ For this simulation, points are rewarded for different interactions as follows:
 ''')
 # have user select between a match or a tournament
 while (True):
+    if advanced == 0:
+        print("Advanced mode is currently off. Only a basic selection of strategies will be able to be selected.\n")
+    else:
+        print("Advanced mode is currently on. A larger selection of strategies will be able to be selected.\n")
     print("Choose from a 1v1 match to a tournament of 2+ participants: ")
     print("1: Match")
     print("2: Tournament")
+    print("3: Toggle Advanced Mode")
     print ("0: Read description of strategies")
     selection = input()
 
@@ -40,6 +48,16 @@ while (True):
     if gamemode == 0:
         get_strategy_choice()
         continue
+    # User wanted to turn on or turn off advanced mode
+    if gamemode == 3:
+        if advanced == 0:
+            print("Advanced mode toggled: ON\n")
+            advanced = 1
+            continue
+        else:
+            print("Advanced mode toggled: OFF\n")
+            advanced = 0
+            continue
     # User provided a non-option
     elif (gamemode > 2 or gamemode < 1):
         print("Please pick 1 or 2")
@@ -47,38 +65,10 @@ while (True):
     else:
         break
 
-# show a list for users to choose from
-if gamemode == 2:
-    print("Choose from the following strategies, enter `-1` when done:")
+if advanced == 0:
+    strategies = basic_selection(gamemode)
 else:
-    print("Choose from the following strategies:")
-players = [axl.TitForTat(), axl.Defector(), axl.Cooperator(), axl.Grudger(), customPlayer1()]
-i = 0
-for i, strategy in enumerate(players):
-    print("{0}: {1}".format(i, strategy.name))
-if gamemode == 2:
-    # add an all option:
-    print("{0}: Add one of each".format(i+1))
-    print()
-
-# ask user for strategy choices
-strategies = []
-i = 0
-strategy = int(input("Player {0} strategy: ".format(i)))
-while strategy != -1:
-    if strategy >= 0 and strategy < len(players):
-        strategies.append(players[strategy])
-        i += 1
-    elif strategy == len(players):
-        for i in range(len(players)):
-            strategies.append(players[i])
-            i+=1
-    else:
-        print("Invalid strategy.")
-
-    if ((gamemode == 1) and (len(strategies) > 1)):
-        break
-    strategy = int(input("Player {0} strategy: ".format(i)))
+    strategies = advanced_selection(gamemode)
 
 
 # ask user for number of rounds. Limited to 100 for testing

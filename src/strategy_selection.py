@@ -1,5 +1,5 @@
 import axelrod as axl
-from custom_strats import *
+from src.custom_strats import *
 import random
 
 def basic_selection(gamemode):
