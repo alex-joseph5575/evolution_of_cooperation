@@ -1,7 +1,6 @@
 # simple command line UI for axelrod
 print("Importing axelrod...")
 import axelrod as axl
-from src.custom_strats import *
 import random
 from src.strategy_descriptions import get_strategy_choice
 from src.strategy_selection import *
@@ -61,7 +60,6 @@ while (True):
     # User provided a non-option
     elif (gamemode > 2 or gamemode < 1):
         print("Please pick 1 or 2")
-    # User selected a proper game action
     else:
         break
 
@@ -79,7 +77,7 @@ while (tooManyRounds):
     if numberOfRounds <= 100:
         break
     print("Too many rounds. Pick a number less than 100: ")
-    
+
 # ask user for amount of noise
 print("Noise represents the probability that a player's move will be flipped between C and D")
 userNoise = float(input("Input number for amount of noise (0 for no noise, 1 for 100% noise): "))
@@ -101,40 +99,75 @@ elif probEnd <= 0:
     print("No chance for probablistic ending")
 
 # provide an opportunity to transform a strategy. Still flushing out.
-'''
 chanceToTransform = int(input("Would you like to transform a strategy? \'-1\' to skip, \'1\' to transform: "))
-if chanceToTransform == 1:
+while (chanceToTransform == 1):
     transformations = ["Flip Moves", "Deadlock Breaker", "Apologetic"]
+    if (userNoise == 0):
+        transformations.append("Noisy")
     for i, strategy in enumerate(strategies):
         print("{0}: {1}".format(i, strategy.name))
     toTransform = int(input("Select a strategy number to transform: "))
+    while (toTransform > (len(strategies) - 1) or toTransform > (len(strategyTransformerGroup))):
+        # print("Length Strategies: ", len(strategies), " Length Transformables: ", len(strategyTransformerGroup))
+        toTransform = int(input("Please select an untransformed strategy that is listed: "))
     stratToTransform = strategies[toTransform]
     for i, transformation in enumerate(transformations):
         print("{0}: {1}".format(i, transformations[i]))
     transformationType = int(input("Select a transformation number: "))
     if transformationType == 0:
         from axelrod.strategy_transformers import FlipTransformer
-        strategies[toTransform] = FlipTransformer()(stratToTransform)
+        strategies.pop(toTransform)
+        newStrategy = FlipTransformer()(strategyTransformerGroup[toTransform])
+        strategyTransformerGroup.pop(toTransform)
+        strategies.append(newStrategy())
+        print("Flip transformation applied.")
     elif transformationType == 1:
         from axelrod.strategy_transformers import DeadlockBreakingTransformer
-        strategies[toTransform] = DeadlockBreakingTransformer()(stratToTransform)
+        strategies.pop(toTransform)
+        newStrategy = DeadlockBreakingTransformer()(strategyTransformerGroup[toTransform])
+        strategyTransformerGroup.pop(toTransform)
+        strategies.append(newStrategy())
+        print("Deadlock Breaking transformation applied.")
     elif transformationType == 2:
         from axelrod.strategy_transformers import ApologyTransformer
-        strategies[toTransform] = ApologyTransformer()(stratToTransform)
+        oldStrategy = strategies.pop(toTransform)
+        newStrategy = ApologyTransformer()(strategyTransformerGroup[toTransform])
+        strategyTransformerGroup.pop(toTransform)
+        strategies.append(newStrategy())
+        print("Apology transformation applied.")
+    elif (transformationType == 3) and (userNoise == 0):
+        noiseToAdd = int(input("Enter the desired amount of noise as a percentage (0-100): "))
+        while (noiseToAdd < 1):
+            print("Minimum of 1% noise required")
+            noiseToAdd = int(input("Enter the desired amount of noise as a percentage (0-100): "))
+        if (noiseToAdd > 100):
+            print("Noise set to the maximum of 100. This is now effectively a flip transformation.")
+        numNoise = noiseToAdd / 100.0
+        from axelrod.strategy_transformers import NoisyTransformer
+        oldStrategy = strategies.pop(toTransform)
+        newStrategy = NoisyTransformer(numNoise)(strategyTransformerGroup[toTransform])
+        strategyTransformerGroup.pop(toTransform)
+        strategies.append(newStrategy())
+        print("Noisy transformation applied.")
+    if (len(strategyTransformerGroup) < 0):
+        print("Every strategy has been transformed! Transformations completed")
+        break
+    chanceToTransform = int(input("Would you like to transform another strategy? \'-1\' to skip, \'1\' to transform: "))
+    if (chanceToTransform == -1):
+        print("Transformations completed")
 else:
     print("Transformations skipped")
-'''
 
 # create a match or tournament
 randomizedRounds = random.randint(5, 15) # randomized number of extra rounds (5-15 for testing)
 numberOfRounds += randomizedRounds
 if gamemode == 2:
-    tournament = axl.Tournament(strategies, turns=numberOfRounds)
+    tournament = axl.Tournament(strategies, turns=numberOfRounds, noise=userNoise, prob_end=probEnd)
 else:
-    tournament = axl.Match(strategies, turns=numberOfRounds)
+    tournament = axl.Match(strategies, turns=numberOfRounds, noise=userNoise, prob_end=probEnd)
 
 # run the tournament
-if gamemode == 2: 
+if gamemode == 2:
     print("Starting tournament...")
 # or run the match
 else:
