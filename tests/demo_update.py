@@ -100,7 +100,7 @@ elif probEnd <= 0:
 # provide an opportunity to transform a strategy. Still flushing out.
 chanceToTransform = int(input("Would you like to transform a strategy? \'-1\' to skip, \'1\' to transform: "))
 while (chanceToTransform == 1):
-    transformations = ["Flip Moves", "Deadlock Breaker", "Apologetic"]
+    transformations = ["Flip Moves", "Deadlock Breaker", "Retaliate Until Apology"]
     if (userNoise == 0):
         transformations.append("Noisy")
     for i, strategy in enumerate(strategies):
@@ -128,12 +128,12 @@ while (chanceToTransform == 1):
         strategies.append(newStrategy())
         print("Deadlock Breaking transformation applied.")
     elif transformationType == 2:
-        from axelrod.strategy_transformers import ApologyTransformer
+        from axelrod.strategy_transformers import RetaliateUntilApologyTransformer
         strategies.pop(toTransform)
-        newStrategy = ApologyTransformer()(strategyTransformerGroup[toTransform])
+        newStrategy = RetaliateUntilApologyTransformer()(strategyTransformerGroup[toTransform])
         strategyTransformerGroup.pop(toTransform)
         strategies.append(newStrategy())
-        print("Apology transformation applied.")
+        print("Retaliate Until Apology transformation applied.")
     elif (transformationType == 3) and (userNoise == 0):
         noiseToAdd = int(input("Enter the desired amount of noise as a percentage (0-100): "))
         while (noiseToAdd < 1):
