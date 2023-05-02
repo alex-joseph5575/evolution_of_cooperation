@@ -9,3 +9,4 @@
   - Display a plot of the output
     - Support multiple plots
     - Ask which columns to plot ?
+    - https://axelrod.readthedocs.io/en/stable/tutorials/new_to_game_theory_and_or_python/visualising_results.html
