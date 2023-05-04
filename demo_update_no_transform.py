@@ -100,10 +100,11 @@ while isPlaying == 1:
         probEnd = 0
         print("No chance for probablistic ending")
 
-    # provide an opportunity to transform a strategy. Still flushing out.
+    # provide an opportunity to transform a strategy
     chanceToTransform = int(input("Would you like to transform a strategy? \'-1\' to skip, \'1\' to transform: "))
     while (chanceToTransform == 1):
         transformations = ["Flip Moves", "Deadlock Breaker", "Retaliate Until Apology"]
+        # only allow for noisy transformation if tournament does not have noise
         if (userNoise == 0):
             transformations.append("Noisy")
         for i, strategy in enumerate(strategies):
