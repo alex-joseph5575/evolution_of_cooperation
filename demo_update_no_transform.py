@@ -182,7 +182,7 @@ while isPlaying == 1:
         print(results.ranked_names)
     else:
         results = tournament.final_score()
-        print("Final Scores: " + str(strategies[0]) + " with " + str(results[0]) + " to " + str(strategies[1]) + " with " + str(results[1]))
+        print("Final Scores: \n=============\n" + str(strategies[0]) + ": " + str(results[0]) + " points\n" + str(strategies[1]) + ": " + str(results[1]) + " points")
 
     print("Would you like to play another game?")
     print("1. Yes")
