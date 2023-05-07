@@ -1,5 +1,6 @@
 import axelrod as axl
 from src.custom_strats import *
+from src.functions import *
 import random
 
 def basic_selection(gamemode):
@@ -53,21 +54,22 @@ def advanced_selection(gamemode):
                    axl.WorseAndWorse(), axl.Forgiver(), axl.Adaptive(),
                    axl.Alternator(), axl.Appeaser(), axl.AverageCopier(),
                    axl.BackStabber(), axl.BetterAndBetter(), axl.Doubler(),
-                   axl.Negation(), axl.ShortMem(), chaotic_clairvoyant(),
-                   fibTitForTat()]
+                   axl.Negation(), axl.ShortMem(), chaotic_clairvoyant()]
+                #    fibTitForTat()]
     adv_playerClasses = [axl.TitForTat, axl.Defector, axl.Cooperator, axl.Grudger,
                    axl.GoByMajority, axl.GradualKiller, axl.Handshake, 
                    axl.WorseAndWorse, axl.Forgiver, axl.Adaptive,
                    axl.Alternator, axl.Appeaser, axl.AverageCopier,
                    axl.BackStabber, axl.BetterAndBetter, axl.Doubler,
-                   axl.Negation, axl.ShortMem, chaotic_clairvoyant,
-                   fibTitForTat]
+                   axl.Negation, axl.ShortMem, chaotic_clairvoyant]
+                #    fibTitForTat] This strat takes too long to run
     i = 0
     for i, strategy in enumerate(adv_players):
         print("{0}: {1}".format(i, strategy.name))
     if gamemode == 2:
         # add an all option:
         print("{0}: Add one of each".format(i+1))
+        print("{0}: Add a random selection of strategies".format(i+2))
         print()
 
     # ask user for strategy choices
@@ -85,6 +87,40 @@ def advanced_selection(gamemode):
                 adv_strategies.append(adv_players[i])
                 adv_strategiesTransformerGroup.append(adv_playerClasses[i])
                 i+=1
+        elif strategy == len(adv_players) + 1:
+            print("Would you like to allow duplicates? (y/n): ")
+            allowDuplicates = getInput(data_type=str)
+            allowDuplicates = allowDuplicates.lower()
+            # ensure valid input
+            while allowDuplicates != "y" and allowDuplicates != "n":
+                print("Invalid input.")
+                allowDuplicates = getInput("Allow duplicates? (y/n): ",data_type=str)
+                allowDuplicates = allowDuplicates.lower()
+            
+            
+            if allowDuplicates == "y":
+                numPlayers = getInput("How many players would you like to add?: ", data_type=int)
+                # ensure valid input
+                while numPlayers < 0:
+                    print("Invalid number of players.")
+                    numPlayers = getInput("Select number of players: ",data_type=int)
+                    
+                for i in range(numPlayers):
+                    playerNum = random.randint(0,len(adv_players)-1)
+                    adv_strategies.append(adv_players[playerNum])
+                    adv_strategiesTransformerGroup.append(adv_playerClasses[playerNum])
+            else:
+                numPlayers = getInput(f"How many players would you like to add? (1-{len(adv_players)}): ", data_type=int)
+                # ensure valid input
+                while numPlayers < 1 or numPlayers > len(adv_players):
+                    print("Invalid number of players.")
+                    numPlayers = getInput("Select number of players: ",data_type=int)
+                    
+                selectionList = adv_players.copy()
+                random.shuffle(selectionList)
+                for i in range(numPlayers):
+                    adv_strategies.append(selectionList[i])
+                    adv_strategiesTransformerGroup.append(adv_playerClasses[i])
         else:
             print("Invalid strategy.")
 

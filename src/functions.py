@@ -7,6 +7,13 @@ from os import path
 import sys
 import pandas as pd
 
+def getInput(prompt="", data_type=type):
+    while True:
+        try:
+            user_input = data_type(input(prompt))
+            return user_input
+        except ValueError:
+            print(f"Error: Input must be of type {data_type.__name__}. Please try again.")
 
 def outputToCsv(df, filename="results"):
     """
@@ -24,6 +31,12 @@ def outputToCsv(df, filename="results"):
     if filename[-4:] == ".csv":
         filename = filename[:-4]
 
+    if filename == "" or filename [0] not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        filename = "results"
+    
+    if not os.path.exists("outputs"):
+        os.makedirs("outputs")
+        
     # check if file exists
     if (path.exists("outputs/" + filename + ".csv")):
 
@@ -37,7 +50,7 @@ def outputToCsv(df, filename="results"):
 
     else:
         df.to_csv("outputs/" + filename + ".csv", index=False)
-        print("File saved as " + filename + ".csv")
+        print("File saved as " + filename + ".csv in the outputs folder.")
 
 
 def resultsToDF(results, tournament):
@@ -55,7 +68,7 @@ def resultsToDF(results, tournament):
     if not isinstance(tournament, tourney.Tournament):
         raise TypeError("tournament must be a Tournament")
 
-    df = pd.DataFrame(results.summarise())
+    df = pd.DataFrame(results.summarise(), index=None)
     df = df.iloc[:, 0:5]
 
     # additional info
@@ -73,7 +86,7 @@ def resultsToDF(results, tournament):
     return df
 
 
-def PrintMatchResults(results, title="Match Results", player1="Player 1", player2="Player 2"):
+def PrintMatchResults(results, title="Match Results", player1="Player 1", player2="Player 2", turn_limit=0):
     """
     Generates a formatted table of iterated prisoner's dilemma match results.
 
@@ -99,11 +112,17 @@ def PrintMatchResults(results, title="Match Results", player1="Player 1", player
     print("-"*(len(title)+len(p1_header)+len(p2_header)+4))
     print(f"|  {turn_header} |  {p1_header} |  {p2_header} |")
     print("-"*(len(title)+len(p1_header)+len(p2_header)+4))
+
+    turns = 0
     for i, (p1_move, p2_move) in enumerate(results):
         p1_move_str = str(p1_move).center(len(player1)+2)
         p2_move_str = str(p2_move).center(len(player2)+2)
         turn_str = str(i+1).center(len(turn_header))
         print(f"|  {turn_str} |  {p1_move_str} |  {p2_move_str} |")
+        turns += 1
+        if turn_limit > 0 and turns >= turn_limit:
+            break
+
     print("-"*(len(title)+len(p1_header)+len(p2_header)+4))
 
 
@@ -148,4 +167,20 @@ def PlotMatchResults(results, title="Match Results", player1="Player 1", player2
     plt.ylabel("Score")
     plt.xticks(turns)
     plt.legend()
+    plt.show()
+
+
+def plot_bar_chart(df, title="Bar chart of total scores"):
+    """
+    Plots a bar chart of the total scores for each strategy in the tournament.
+    :param df: Pandas DataFrame containing the results of the tournament
+    :param title: Title of the plot (default: "Bar chart of total scores")
+    :return: None
+    """
+    fig, ax = plt.subplots()
+    ax.bar(df["Name"], df["Total score"])
+    ax.set_xlabel("Strategy")
+    ax.set_ylabel("Total score")
+    ax.set_title(title)
+    plt.xticks(rotation=90)
     plt.show()
