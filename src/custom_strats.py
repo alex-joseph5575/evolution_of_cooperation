@@ -99,8 +99,8 @@ class fibTitForTat(axl.Player):
     name = "fibTitForTat"
     classifier = {
         "memory_depth": 1,  # Four-Vector = (1.,0.,1.,0.)
-        "stochastic": False,
-        "long_run_time": False,
+        "stochastic": True,
+        "long_run_time": True,
         "inspects_source": False,
         "manipulates_source": False,
         "manipulates_state": False,
