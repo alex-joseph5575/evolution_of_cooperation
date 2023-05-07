@@ -1,4 +1,6 @@
 # import axelrod as axl
+from axelrod import result_set, tournament as tourney
+import matplotlib.pyplot as plt
 import random
 import os
 from os import path
@@ -17,27 +19,27 @@ def outputToCsv(df, filename="results"):
     # Check if the input is a Pandas DataFrame
     if not isinstance(df, pd.DataFrame):
         raise TypeError("Input must be a Pandas DataFrame")
-    
+
     # if filename ends in .csv, remove it
     if filename[-4:] == ".csv":
         filename = filename[:-4]
 
     # check if file exists
     if (path.exists("outputs/" + filename + ".csv")):
-        
+
         # increment filename
         i = 1
         while (path.exists("outputs/" + filename + "_{0}.csv".format(i))):
             i += 1
-        
+
         df.to_csv("outputs/" + filename + "_{0}.csv".format(i), index=False)
         print("File saved as " + filename + "_{0}.csv".format(i))
-    
+
     else:
         df.to_csv("outputs/" + filename + ".csv", index=False)
         print("File saved as " + filename + ".csv")
 
-from axelrod import result_set, tournament as tourney
+
 def resultsToDF(results, tournament):
     """
     Converts a ResultSet object from Axelrod to a Pandas DataFrame.
@@ -52,7 +54,6 @@ def resultsToDF(results, tournament):
         raise TypeError("results must be a ResultSet")
     if not isinstance(tournament, tourney.Tournament):
         raise TypeError("tournament must be a Tournament")
-    
 
     df = pd.DataFrame(results.summarise())
     df = df.iloc[:, 0:5]
@@ -72,104 +73,79 @@ def resultsToDF(results, tournament):
     return df
 
 
-import matplotlib.pyplot as plt
+def PrintMatchResults(results, title="Match Results", player1="Player 1", player2="Player 2"):
+    """
+    Generates a formatted table of iterated prisoner's dilemma match results.
 
-def plot_bar_chart(df, title="Bar chart of total scores"):
+    Parameters:
+    results (List[tuple[str,str]) (from axl.Match(_).play()): The list of tuples representing the moves made by two players in the match.
+    title (str): The title of the table. Defaults to "Match Results".
+    player1 (str): The name of the first player. Defaults to "Player 1".
+    player2 (str): The name of the second player. Defaults to "Player 2".
+
+    Returns:
+    None: This function does not return a value, but instead outputs the table to the console.
     """
-    Plots a bar chart of the total scores for each strategy in the tournament.
-    :param df: Pandas DataFrame containing the results of the tournament
-    :param title: Title of the plot (default: "Bar chart of total scores")
-    :return: None
+    if not isinstance(player1, str):
+        raise TypeError("player1 must be a string")
+    if not isinstance(player2, str):
+        raise TypeError("player2 must be a string")
+
+    turn_header = "Turn".center(len(str(len(results)))+2)
+    p1_header = player1.center(len(player1)+2)
+    p2_header = player2.center(len(player2)+2)
+
+    print(title + ":")
+    print("-"*(len(title)+len(p1_header)+len(p2_header)+4))
+    print(f"|  {turn_header} |  {p1_header} |  {p2_header} |")
+    print("-"*(len(title)+len(p1_header)+len(p2_header)+4))
+    for i, (p1_move, p2_move) in enumerate(results):
+        p1_move_str = str(p1_move).center(len(player1)+2)
+        p2_move_str = str(p2_move).center(len(player2)+2)
+        turn_str = str(i+1).center(len(turn_header))
+        print(f"|  {turn_str} |  {p1_move_str} |  {p2_move_str} |")
+    print("-"*(len(title)+len(p1_header)+len(p2_header)+4))
+
+
+def PlotMatchResults(results, title="Match Results", player1="Player 1", player2="Player 2"):
     """
-    fig, ax = plt.subplots()
-    ax.bar(df["Name"], df["Total score"])
-    ax.set_xlabel("Strategy")
-    ax.set_ylabel("Total score")
-    ax.set_title(title)
+    Plots the cumulative scores of two players over a series of turns in an iterated prisoner's dilemma match.
+
+    Parameters:
+    results (List[Tuple[int, int]]) (from axl.Match(_).scores()): A list of tuples representing the scores of each turn of the match.
+    title (str): A string representing the title of the plot. Default is "Match Results".
+    player1 (str): A string representing the name of the first player. Default is "Player 1".
+    player2 (str): A string representing the name of the second player. Default is "Player 2".
+
+    Returns:
+    None: This function does not return anything, it simply displays the plot.
+    """
+    if not isinstance(player1, str):
+        raise TypeError("player1 must be a string")
+    if not isinstance(player2, str):
+        raise TypeError("player2 must be a string")
+
+    p1_scores = [0]
+    p2_scores = [0]
+
+    for i, (p1_move, p2_move) in enumerate(results):
+        if p1_move > p2_move:
+            p1_scores.append(p1_scores[-1] + 3)
+            p2_scores.append(p2_scores[-1] + 0)
+        elif p1_move < p2_move:
+            p1_scores.append(p1_scores[-1] + 0)
+            p2_scores.append(p2_scores[-1] + 3)
+        else:
+            p1_scores.append(p1_scores[-1] + 1)
+            p2_scores.append(p2_scores[-1] + 1)
+
+    turns = range(len(results) + 1)
+
+    plt.plot(turns, p1_scores, label=player1)
+    plt.plot(turns, p2_scores, label=player2)
+    plt.title(title)
+    plt.xlabel("Turn")
+    plt.ylabel("Score")
+    plt.xticks(turns)
+    plt.legend()
     plt.show()
-
-
-def plot_heatmap(df, title="Heatmap of scores for each pair of strategies"):
-    """
-    Plots a heatmap of the scores for each pair of strategies in the tournament.
-    :param df: Pandas DataFrame containing the results of the tournament
-    :param title: Title of the plot (default: "Heatmap of scores for each pair of strategies")
-    :return: None
-    """
-    pivot = df.pivot(index="Player 1", columns="Player 2", values="Score")
-    fig, ax = plt.subplots()
-    im = ax.imshow(pivot, cmap='Blues')
-    ax.set_xticks(range(len(pivot.columns)))
-    ax.set_xticklabels(pivot.columns, rotation=90)
-    ax.set_yticks(range(len(pivot.index)))
-    ax.set_yticklabels(pivot.index)
-    ax.set_title(title)
-    plt.colorbar(im)
-    plt.show()
-
-
-def plot_box_plot(df, title="Box plot of scores for each strategy"):
-    """
-    Plots a box plot of the scores for each strategy in the tournament.
-    :param df: Pandas DataFrame containing the results of the tournament
-    :param title: Title of the plot (default: "Box plot of scores for each strategy")
-    :return: None
-    """
-    fig, ax = plt.subplots()
-    ax.boxplot(df["Score"], labels=df["Name"])
-    ax.set_xlabel("Strategy")
-    ax.set_ylabel("Score")
-    ax.set_title(title)
-    plt.show()
-
-def plot_line_chart(df, player_1=None, player_2=None, title="Line chart of scores over time"):
-    """
-    Plots a line chart of the scores over time for a single match between two strategies.
-    If player_1 and player_2 are not specified, the first two rows in the DataFrame will be used.
-    :param df: Pandas DataFrame containing the results of the tournament
-    :param player_1: Index of the first row (default: None)
-    :param player_2: Index of the second row (default: None)
-    :param title: Title of the plot (default: "Line chart of scores over time")
-    :return: None
-    """
-    if player_1 is None or player_2 is None:
-        if len(df) < 2:
-            raise ValueError("DataFrame does not contain data for at least two players")
-        player_1, player_2 = df.index[:2]
-
-    subset = df.loc[[player_1, player_2]]
-    fig, ax = plt.subplots()
-    ax.plot(subset["Turn"], subset["Score"], label=f"{subset.iloc[0]['Name']} vs {subset.iloc[1]['Name']}")
-    ax.set_xlabel("Turn")
-    ax.set_ylabel("Score")
-    ax.set_title(title)
-    ax.legend()
-    plt.show()
-
-def plot_all(df, tournament, title_prefix="Tournament Results"):
-    """
-    Creates all visualizations for the tournament results.
-    :param df: Pandas DataFrame containing the results of the tournament
-    :param tournament: Tournament object from Axelrod
-    :param title_prefix: Prefix to use for all plot titles (default: "Tournament Results")
-    :return: None
-    """
-    # Create bar chart of total scores
-    title = title_prefix + " - Bar chart of total scores"
-    plot_bar_chart(df, title=title)
-
-    # Create heatmap of scores for each pair of strategies
-    title = title_prefix + " - Heatmap of scores for each pair of strategies"
-    plot_heatmap(df, title=title)
-
-    # Create box plot of scores for each strategy
-    title = title_prefix + " - Box plot of scores for each strategy"
-    plot_box_plot(df, title=title)
-
-    # Create line chart of scores over time for a single match
-    title = title_prefix + " - Line chart of scores over time"
-    if len(df) < 2:
-        player_1 = player_2 = None
-    else:
-        player_1, player_2 = df.index[:2]
-    plot_line_chart(df, player_1, player_2, title=title)
