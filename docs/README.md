@@ -17,6 +17,6 @@ This will prompt a basic command line interface that you can follow to set up a 
 
 # Contributors
 * [Alex Joseph](https://github.com/alex-joseph5575)
-* [Austin Simpson] (https://github.com/Austin-Simpson)
-* [Marc Domingo] (https://github.com/MNGSunday)
-* [Jaden Suh] (https://github.com/JadenSuh)
+* [Austin Simpson](https://github.com/Austin-Simpson)
+* [Marc Domingo](https://github.com/MNGSunday)
+* [Jaden Suh](https://github.com/JadenSuh)
