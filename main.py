@@ -149,16 +149,22 @@ while isPlaying == 1:
             strategies.append(newStrategy())
             print("Retaliate Until Apology transformation applied.")
         elif (transformationType == 3) and (userNoise == 0):
-            noiseToAdd = int(
-                getInput("Enter the desired amount of noise as a percentage (0-100): ", data_type=int))
-            while (noiseToAdd < 1):
-                print("Minimum of 1% noise required")
-                noiseToAdd = int(
-                    getInput("Enter the desired amount of noise as a percentage (0-100): ", data_type=int))
-            if (noiseToAdd > 100):
-                print(
-                    "Noise set to the maximum of 100. This is now effectively a flip transformation.")
-            numNoise = noiseToAdd / 100.0
+            noiseAccepted = 0
+            while (noiseAccepted == 0):
+                try:
+                    noiseToAdd = int(
+                        getInput("Enter the desired amount of noise as a percentage (1-100): ", data_type=int))
+                    while (noiseToAdd < 1):
+                        print("Minimum of 1% noise required")
+                        noiseToAdd = int(
+                            getInput("Enter the desired amount of noise as a percentage (1-100): ", data_type=int))
+                    if (noiseToAdd > 100):
+                        print(
+                            "Noise set to the maximum of 100. This is now effectively a flip transformation.")
+                    numNoise = noiseToAdd / 100.0
+                    noiseAccepted = 1
+                except:
+                    print("Invalid noise amount entered. Please try again.")
             from axelrod.strategy_transformers import NoisyTransformer
             strategies.pop(toTransform)
             newStrategy = NoisyTransformer(numNoise)(
