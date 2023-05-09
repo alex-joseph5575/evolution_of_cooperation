@@ -166,7 +166,7 @@ while isPlaying == 1:
             strategyTransformerGroup.pop(toTransform)
             strategies.append(newStrategy())
             print("Noisy transformation applied.")
-        if (len(strategyTransformerGroup) < 0):
+        if ((len(strategyTransformerGroup) - 1) < 0):
             print("Every strategy has been transformed! Transformations completed")
             break
         chanceToTransform = int(getInput("Would you like to transform another strategy? \'-1\' to skip, \'1\' to transform: ", data_type=int))
