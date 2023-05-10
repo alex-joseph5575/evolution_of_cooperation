@@ -74,6 +74,10 @@ while isPlaying == 1:
     else:
         strategies, strategyTransformerGroup = advanced_selection(gamemode)
 
+    if (len(strategies) < 2):
+        print("Please select at two strategies to play.")
+        continue
+        
     # ask user for number of rounds. Limited to 100 for testing
     tooManyRounds = True
     print("How many turns should be played between two players? Enter a number: ")
