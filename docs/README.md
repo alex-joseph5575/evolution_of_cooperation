@@ -96,8 +96,18 @@ python main.py
 ```
 This will prompt a basic command line interface that you can follow to set up a prisoner's dilemma competition. Once you have selected your strategies, the tournament will commence. 
 
+
+### Documentation
+Project was built upon the Axelrod API in Python, consisting of an overall looping program logic containing initial strategy selection, parameter manipulation, and output options in that order. Two custom strategies - Chaotic Clairvoyant and FibTitForTat - were implemented. Chaotic Clairvoyant takes advantage of a high memory depth, while FibTitforTat uses the fibonacci sequence to create a high amount of randomization.
+
 ### Contributors
-* [Alex Joseph](https://github.com/alex-joseph5575)
-* [Austin Simpson](https://github.com/Austin-Simpson)
-* [Marc Domingo](https://github.com/MNGSunday)
-* [Jaden Suh](https://github.com/JadenSuh)
+* [Alex Joseph](https://github.com/alex-joseph5575) - Project leader, assigned tasks and checked progress, contributed to research, program logic, and output creation
+* [Austin Simpson](https://github.com/Austin-Simpson) - Created output logic and implemented plotting tools, implemented custom strategy feature
+* [Marc Domingo](https://github.com/MNGSunday) - Researched related literature and implemented strategy list with explanations
+* [Jaden Suh](https://github.com/JadenSuh) - Implemented user-selected parameters such as noise and evolved strategies, created general program logic
+
+### Testing
+Testing was done via comparison to scripts written solely with the Axelrod API, and by testing several possible branches inside the program. By comparing data received from our program to the data output given by the API, we were able to verify that our program is functioning properly and not mistranslating the data received from the API.
+
+### Results
+The entire program is functional to the best of our knowledge. Plans changed dramatically upon discovery of the API, shifting from creating our own tournament to building upon the API's existing work. All project goals have been accomplished, but there are many ways in which it can be improved upon in the future. Foremost among them would be a GUI, implemented alongside the existing program logic to provide a much easier to use graphical interface as opposed to one based in the command line. Existing GUI packages would be the simplest to leverage to achieve this goal. Another goal would be to further reduce the coding necessary for custom strategies, as some scripting knowledge is still necessary at this time. Finally, additional games such as the Guardian's Dilemma could be implemented alongside the Prisoner's Dilemma. 
