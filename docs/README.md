@@ -42,7 +42,43 @@ The Prisoner's Dilemma itself is a widely-examined topic within the field of Soc
 
 As at the time, Axelrod had noticed that only the base variant of the Prisoner's Dilemma had been examined through research, but not the Iterative Prisoner's Dilemma, Axelrod had conducted a tournament in order to examine what strategy would perform the best when confronted against others in an Iterative Prisoner's Dilemma Tournament.
 
+The tournament itself:
+
+- Consisted of 15 Strategies that were submitted by economists, psychologists, sociologists, mathematicians, and political scientists
+- Was styled as a Round Robin Tournament, meaning that each strategy faced each other in a 1-on-1 match during the tournament
+
+	- Each match of the tournament lasted 200 rounds
+
+- Had a point breakdown of:
+
+	- 3 Points awarded to both strategies in the event of mutual cooperation (C, C)
+	- 1 Point awarded to both strategies in the event of mutual defection (D, D)
+	- And in the case where one strategy cooperated and the other strategy defected (C, D)
+
+		- The strategy that defected (D) receives 5 points
+		- The strategy that cooperated (C) recieves 0 points
+
+The most successful strategy within the original Axelrod Tournament was the strategy [Tit For Tat](https://github.com/Axelrod-Python/Axelrod/blob/master/axelrod/strategies/titfortat.py), a strategy that begins by cooperating (C) with the opponent strategy until the opponent defects (D). Tit For Tat would then defect (D) the turn following after the opponent's defection (D), and then continue cooperating (C) until the opponent defects (D) again. In spite of not only being a basic strategy, but also a strategy that other participants in the tournament had submitted variations of in order to attempt to "improve" it, Axelrod had noticed a trend in Tit For Tat and other strategies that had performed well during the tournament.
+
+Axelrod had noticed that strategies that scored high during Iterative Prisoner's Dilemma were:
+
+- **Nice**. The strategies did not begin nor end each match by defecting (D), and overall prioritized cooperating (C) with the opposing strategy.
+- **Effective in matches against specific strategies**. Axelrod had noticed two strategies that performed exceptionally well in the tournament, and had noticed that high-scoring strategies had also worked well when competing against these strategies:
+
+	- **DOWNING**. A strategy that attempts to predict its opponents next move based on how DOWNING had acted during the previous turn.
+
+		- For example, if DOWNING determines that a strategy, such as Tit For Tat, tends to cooperate (C) unless DOWNING defects (D), then DOWNING will determine that cooperating (C) is the best action to take on subsequent rounds of the match. Conversely, if DOWNING determines that a strategy tends to defect (D) often regardless of DOWNING's actions, DOWNING determines that the best course of action is to defect (D) on subsequent rounds of the match.
+
+	- **GRAASKAMP**. A strategy that attempts to determine whether it is facing Tit For Tat, a variant of Tit For Tat, or a strategy that cooperates (C) and defects (D) randomly.
+
+		- GRAASKAMP initially starts off as Tit For Tat for the first 50 turns for the match, and then Defects. If GRAASKAMP is facing off against Tit For Tat or a variant, after a defect (D) from the opponent on the 52nd turn, then GRAASKAMP continues to play Tit For Tat for the rest of the match. If GRAASKAMP determines that its own score is bad by the 52nd turn, it assumes that the opponent is defecting (D) and cooperating (C) randomly, and thus decides to defect (D) for the rest of the match.
+
+- **Forgiving**. The strategies did not excessively (at most once or 0 times) punish the opponent by defecting (D) after the opponent had defected (D) during the previous round.  
+
+
 ## The Project Itself
+The objective of this project was to take the already existing [Axelrod API](https://github.com/Axelrod-Python/Axelrod/tree/master), and make it a lot more-user friendly with an easier program to run tournaments and 1-on-1 matches with various options to display the results of said tournaments and matches, in addition to including a template on how to implement user-made custom strategies.
+
 ### Installation Instructions
 First, clone the repository:
 ```
