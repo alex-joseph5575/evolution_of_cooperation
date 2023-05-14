@@ -21,7 +21,28 @@ This project seeks to look into a variation of the Prisoner's Dilemma called the
 ### Why is this interesting?
 Examining the behaviors and outcomes of the "prisoners" involved within the Prisoner's Dilemma enables us to examine human biases within relationships, such as why humans are biased towards cooperating with each other, even when an incentive to be selfish provides a better outcome. In addition to this, the Iterative Prisoner's Dilemma asks additional questions in Social Psychology such as "Why do humans trust each other when it makes more logical sense to distrust?" and "When do the repercussions for acting selfishly get outweighed by the benefits?"
 
+## Literature Review
+### Regarding the Prisoner's Dilemma
+[Effective Choice in the Prisoner's Dilemma (Axelrod 1980)](https://www.jstor.org/stable/173932)
 
+The Prisoner's Dilemma itself is a widely-examined topic within the field of Social Psychology in that it encapsulates an individual's internal conflict between Individual Rationality and Group Rationality when making decisions.
+
+- Individual Rationality advocates for acting selfishly as in the scenario of the Prisoner's Dilemma, betraying the other prisoner provides arguably better outcomes than cooperating with the other prisoner
+
+	- In the base Prisoner's Dilemma, the other prisoner's motives and willingness to either betray or cooperate are unknown, and because of this, defecting provides relatively better outcomes than blind trust
+	- In the case of the Iterative Prisoner's Dilemma, the individual is still subject to uncertainty due to the other prisoner randomly deciding to betray on a whim
+
+- Group Rationality advocates for acting in the best interest of everyone and thus what would benefit the entire group the most, which in the case of the Prisoner's Dilemma is trusting the other prisoner to cooperate regardless of uncertainty
+
+	- In the base Prisoner's Dilemma, Group Rationality argues for cooperating in the event that the other prisoner also wants to act in the best interest for the group, but ultimately has the worst outcome possible if the individual is betrayed
+	- In the case of the Iterative Prisoner's Dilemma, the incentive to cooperate with the other prisoner is heightened as the other prisoner will remember actions from previous rounds, which represents an ongoing relationship between the two prisoners
+
+### An Overview of the First Axelrod Tournament
+[Effective Choice in the Prisoner's Dilemma (Axelrod 1980)](https://www.jstor.org/stable/173932)
+
+As at the time, Axelrod had noticed that only the base variant of the Prisoner's Dilemma had been examined through research, but not the Iterative Prisoner's Dilemma, Axelrod had conducted a tournament in order to examine what strategy would perform the best when confronted against others in an Iterative Prisoner's Dilemma Tournament.
+
+## The Project Itself
 ### Installation Instructions
 First, clone the repository:
 ```
