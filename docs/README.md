@@ -100,6 +100,8 @@ This will prompt a basic command line interface that you can follow to set up a 
 
 #### Rounds
 The maximum number of rounds that each match in the tournament itself can be played.
+A randomized number of rounds will also be added to the inputted number.
+Current maximum allowable rounds is 100 to avoid excessively long tournaments.
 
 #### Noise
 The probability that a player's move will be flipped between C and D. This random flip occurs in every round of every match at the given probability.
