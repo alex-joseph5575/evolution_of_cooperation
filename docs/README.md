@@ -96,6 +96,28 @@ python main.py
 ```
 This will prompt a basic command line interface that you can follow to set up a prisoner's dilemma competition. Once you have selected your strategies, the tournament will commence. 
 
+### Tournament Variables
+
+#### Rounds
+The maximum number of rounds that each match in the tournament itself can be played.
+
+#### Noise
+The probability that a player's move will be flipped between C and D. This random flip occurs in every round of every match at the given probability.
+A maximum of 1 noise will result in every move being the opposite of what the strategy determines.
+
+#### Probabilistic Ending
+The probability that a match in a tournament will end after the given round. This chance to prematurely end the match will occur in every round of every match at the given probability.
+A maximum of 0.5 probabilistic end can be given for a 50% chance that each match ends after every round.
+
+#### Transformations
+Transformations alter strategies in specific ways. Each strategy can only be transformed once and the strategy's name will be altered to reflect the transformation.
+If every strategy is transformed once, the program will begin the tournament without input from the user.
+Currently implemented transformers:
+* Flip Transformer: All of the strategy's moves will be the opposite of what they should be. Effectively 100% noise.
+* Deadlock Breaking Transformer: The strategy will attempt to break alternating (defect, cooperate), (cooperate, defect) deadlocks by cooperating on its next chance to defect.
+* Retaliate Until Apology Transformer: Applies tit-for-tat style retaliation where the strategy will defect upon betrayal until the opponent cooperates.
+* Noisy Transformer: Allows for the application of noise to an individual strategy instead of the entire tournament. 
+	* Noisy Transformer will only be available for matches and tournaments with no noise.
 
 ### Documentation
 Project was built upon the Axelrod API in Python, consisting of an overall looping program logic containing initial strategy selection, parameter manipulation, and output options in that order. Two custom strategies - Chaotic Clairvoyant and FibTitForTat - were implemented. Chaotic Clairvoyant takes advantage of a high memory depth, while FibTitforTat uses the fibonacci sequence to create a high amount of randomization.
